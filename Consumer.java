@@ -12,7 +12,6 @@ class Consumer implements Callable<Integer> {
 	public Integer call() throws Exception {
 		try {
 			while (true){
-
 				/* entering the critical section now; wrap in synchronized block
 				 * if queue is empty, consumer needs to wait
 				 * else consume the value in queue */
@@ -28,7 +27,6 @@ class Consumer implements Callable<Integer> {
 				}
 			}
 		}	catch(Exception e) {
-
 			return -1;
 		}
 	}

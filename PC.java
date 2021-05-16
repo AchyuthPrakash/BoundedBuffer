@@ -15,12 +15,10 @@ public class PC{
         Queue<String> buffer = new LinkedList<>();
         int maxSize = 10;	// max size of the buffer (or queue)
         int n = 11; 	// number of threads in pool
-
         ExecutorService executor = Executors.newFixedThreadPool(n); // executor -- create a thread pool of n threads
+
         Producer prodTask = new Producer(buffer, maxSize, "https://harness.io/customers/"); // create a single producer task
-
-        ProducerMongo prodTask2 = new ProducerMongo(buffer, maxSize, "mongoDb"); // create a single producer type 2 task
-
+        ProducerMongo prodTask2 = new ProducerMongo(buffer, maxSize, "mongoDbDocker", "TopMoviesList"); // create a single producer type 2 task
         ArrayList<Consumer> consTasks = new ArrayList<Consumer>(n-1); // create a list of consumer tasks
         for(int i=0; i<n-1; i++)
             consTasks.add(new Consumer(buffer, maxSize));

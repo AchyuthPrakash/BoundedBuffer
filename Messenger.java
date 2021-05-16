@@ -1,5 +1,5 @@
 public interface Messenger {
     String get();
-    void put();
+    void put(String str);
 }
 

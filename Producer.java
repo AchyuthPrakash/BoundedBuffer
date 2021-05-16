@@ -18,27 +18,24 @@ public class Producer implements Callable<Integer>, Messenger {
 		this.maxSize = maxSize;
 		this.website = website;
 
+		// connect to website and retrieve the data
 		Document doc = null;
 		try {
 			doc = Jsoup.connect(this.website).userAgent("mozilla/17.0").get();
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		String title = doc.title();
-//		System.out.println(title);
+
 		links = doc.select("a[href]");
 		linksSize = links.size();
-		//System.out.println(sz);
 	}
 
 	@Override
 	public Integer call() throws Exception {
 		try {
 			while (true) {
-				/* entering the critical section now; wrap in synchronized block
-				 * if queue is full, producer needs to wait
+				/* entering the critical section now; wrap in synchronized block; if queue is full, producer needs to wait
 				 * else add entry to the queue */
 				synchronized (queue) {
 					while (queue.size() == maxSize) {
@@ -47,10 +44,9 @@ public class Producer implements Callable<Integer>, Messenger {
 					}
 					/* producer gets some data from the web-page and put it into the queue */
 					String str = get();
-					//System.out.println(str + " " + queue.size() + " " + maxSize);
 					if(!str.isEmpty()) {
 						System.out.println("Producer -- " +  this.toString() + " Producing value : " + str);
-						queue.add(str);
+						put(str);
 					}
 					queue.notifyAll();
 				}
@@ -64,17 +60,16 @@ public class Producer implements Callable<Integer>, Messenger {
 
 	@Override
 	public String get() {
-		// System.out.print("In producer get() ");
+		// randomly pick an entry and return it
 		Random rand = new Random();
 		int rand_int1 = rand.nextInt(this.linksSize);
 		String str = this.links.get(rand_int1).text();
-		// System.out.println(rand_int1 + " " + str);
 		return str;
 	}
 
 	@Override
-	public void put() {
-		// TODO Auto-generated method stub
-
+	public void put(String str) {
+		// process the string and add it to q -- here we convert all characters to lowercase
+		queue.add(str.toLowerCase());
 	}
 }
