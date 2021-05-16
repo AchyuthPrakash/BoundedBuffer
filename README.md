@@ -10,7 +10,7 @@ To run the code successfully kindly follow these steps:
 
 Note: myMongo can be replaced with any name of your choice
 
-3) Uncomment all lines in Mongo.java and run Mongo.java
+3) Run MongoDocker.java
 
 Step 3) ensures that a databse has been created and a collection has been added to it.
 
