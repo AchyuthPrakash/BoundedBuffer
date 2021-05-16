@@ -2,14 +2,14 @@ import java.util.Queue;
 import java.util.concurrent.Callable;
 
 class Consumer implements Callable<Integer> {
-	private Queue<String> queue;
+	private final Queue<String> queue;
 
-	public Consumer(Queue<String> queue, int maxSize){
+	public Consumer(Queue<String> queue){
 		this.queue = queue;
 	}
 
 	@Override
-	public Integer call() throws Exception {
+	public Integer call() {
 		try {
 			while (true){
 				/* entering the critical section now; wrap in synchronized block
@@ -17,12 +17,12 @@ class Consumer implements Callable<Integer> {
 				 * else consume the value in queue */
 				synchronized (queue) {
 					while (queue.isEmpty()) {
-						System.out.println("Consumer -- " + this.toString() +" Queue is empty");
-						System.out.println("Consumer -- " + this.toString() + " is Waiting");
+						System.out.println("Consumer -- " + this +" Queue is empty");
+						System.out.println("Consumer -- " + this + " is Waiting");
 						queue.wait();
 					}
 
-					System.out.println("Consumer -- "  + this.toString() + " Consuming value : " + queue.remove());
+					System.out.println("Consumer -- "  + this + " Consuming value : " + queue.remove());
 					queue.notifyAll();
 				}
 			}
