@@ -1,7 +1,7 @@
 # BoundedBuffer
 Implementation of the Bounded Buffer/Producer-Consumer problem. 
 There are 2 kinds of producers, one type reads info from a website and puts it into the shared queue, 
-while the other type of producer reads info from a mongo database and puts it into a shared queue.
+while the other type of producer reads info from a mongo database and puts it into the shared queue.
 
 To run the code successfully kindly follow these steps:
 1) Create/Install a docker image of mongodb. Also install bazel.
