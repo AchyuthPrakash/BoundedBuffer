@@ -16,7 +16,9 @@ Note: myMongo can be replaced with any name of your choice
 
 Step 3) ensures that a databse has been created and a collection has been added to it.
 
-4) Run PC.java (similar to step 3)
+4) Run PC.java (similar to step 3): `bazel build //:PC`
+
+`bazel-bin/PC`
 
 5) To stop the docker container from running, use the following command: sudo docker stop myMongo. 
 
